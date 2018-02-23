@@ -46,6 +46,14 @@ struct HoverScene {
         }
         containerNode.position = position
         scene.rootNode.addChildNode(containerNode)
+        
+        addAnimation(node: containerNode)
+    }
+    
+    func addAnimation(node: SCNNode) {
+        let rotateOne = SCNAction.rotateBy(x: 0, y: CGFloat(Float.pi), z: 0, duration: 5.0)
+        let repeatForever = SCNAction.repeatForever(rotateOne)
+        node.runAction(repeatForever)
     }
 }
 
