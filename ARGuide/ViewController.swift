@@ -65,11 +65,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @objc func didTapScreen(recognizer: UITapGestureRecognizer) {
         if didInitializeScene {
             if let camera = sceneView.session.currentFrame?.camera {
-                var translation = matrix_identity_float4x4
-                translation.columns.3.z = -1.0
-                let transform = camera.transform * translation
-                let position = SCNVector3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
-                sceneController.addSphere(position: position)
+                let tapLocation = recognizer.location(in: sceneView)
+                let hitTestResults = sceneView.hitTest(tapLocation)
+                if let node = hitTestResults.first?.node, let scene = sceneController.scene, let sphere = node.topmost(until: scene.rootNode) as? Sphere {
+                    sphere.animate()
+                }
+                else {
+                    var translation = matrix_identity_float4x4
+                    translation.columns.3.z = -5.0
+                    let transform = camera.transform * translation
+                    let position = SCNVector3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+                    sceneController.addSphere(position: position)
+                }
             }
         }
     }
@@ -84,11 +91,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
 */
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if !didInitializeScene {
-            if sceneView.session.currentFrame?.camera != nil {
-                didInitializeScene = true
-            }
-       }
+        if let camera = sceneView.session.currentFrame?.camera {
+            didInitializeScene = true
+            
+            let transform = camera.transform
+            let position = SCNVector3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+            sceneController.makeUpdateCameraPos(towards: position)
+        }
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
