@@ -44,7 +44,6 @@ struct HoverScene {
     }
     
     func addSphere(position: SCNVector3) {
-        
         guard let scene = self.scene else { return }
         
         let sphere = Sphere()
@@ -55,6 +54,7 @@ struct HoverScene {
         let scaleAction = SCNAction.scale(to: CGFloat(prevScale.x), duration: 1.5)
         scaleAction.timingMode = .linear
         
+        // Use a custom timing function
         scaleAction.timingFunction = { (p: Float) in
             return self.easeOutElastic(p)
         }
@@ -63,6 +63,7 @@ struct HoverScene {
         sphere.runAction(scaleAction, forKey: "scaleAction")
     }
     
+    // Timing function that has a "bounce in" effect
     func easeOutElastic(_ t: Float) -> Float {
         let p: Float = 0.3
         let result = pow(2.0, -10.0 * t) * sin((t - p / 4.0) * (2.0 * Float.pi) / p) + 1.0
