@@ -1,6 +1,6 @@
 # AR Tutorial Part2 - SceneKit animations, camera and interaction
 
-Continuing this series of ARKit tutorials, this time adding animations, interacting with the models, and showing how to use the camera to drive the scene. Follow the [tutorial at the Nike S23NYC Engineering blog](https://medium.com/s23nyc-tech).
+Continuing this series of ARKit tutorials, this time adding animations, interacting with the models, and showing how to use the camera to drive the scene. Follow the [tutorial at the Nike S23NYC Engineering blog](https://medium.com/s23nyc-tech/arkit-scenekit-and-how-to-control-the-world-dc7377eb1dc6).
 
 
 <img src="https://github.com/AbovegroundDan/ARTutorial_Part2/blob/master/eye_patrol.gif" width="20%" height="20%">
